@@ -9,7 +9,7 @@ RUN apt-get update \
  && cat /etc/apt/sources.list.d/llvm.list \
  && apt-get update \
  && apt-get install -yy --no-install-recommends clang-3.8 clang-format-3.8 \
-    clang-tidy-3.8 lldb-3.8 cmake make pkg-config \
+    clang-tidy-3.8 lldb-3.8 cmake make pkg-config perl-modules \
  && apt-get -yy remove wget \
  && apt-get -yy autoremove \
  && apt-get -yy clean \
