@@ -2,26 +2,28 @@ FROM debian:jessie
 MAINTAINER Jonathan Brooker <jonathan.brooker@gmail.com>
 
 RUN apt-get update \
- && apt-get install -yy --no-install-recommends wget \
- && wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | apt-key add - \
- && printf "deb http://llvm.org/apt/jessie/ llvm-toolchain-jessie main" \
-    > /etc/apt/sources.list.d/llvm.list \
- && cat /etc/apt/sources.list.d/llvm.list \
- && apt-get update \
- && apt-get install -yy --no-install-recommends clang-3.8 clang-format-3.8 \
-    clang-tidy-3.8 lldb-3.8 cmake make pkg-config perl-modules \
-    libdigest-md5-file-perl libasan1 \
- && apt-get -yy remove wget \
+ && apt-get install -yy --no-install-recommends build-essential python golang \
+    cmake ninja-build autoconf automake autotools-dev libtool coreutils \
+    make git subversion pkg-config perl-modules libdigest-md5-file-perl libasan1 \
+ && mkdir -p /src \
+ && mkdir -p /build/llvm \
+ && cd /src && git clone --depth 1 http://llvm.org/git/llvm.git \
+ && cd /src/llvm/tools && git clone --depth 1 http://llvm.org/git/clang.git \
+ && cd /src/llvm/projects && git clone --depth 1 \
+    http://llvm.org/git/compiler-rt.git \
+ && cd /src/llvm/projects && git clone --depth 1 \
+    http://llvm.org/git/libcxx.git \
+ && cd /src/llvm/projects && git clone --depth 1 \
+    http://llvm.org/git/libcxxabi.git \
+ && cd /build/llvm \
+ && cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-O3" /src/llvm \
+ && ninja install \
+ && rm -rf /build \
+ && apt-get -yy remove build-essential python golang ninja-build autoconf \
+    automake autotools-dev libtool coreutils git subversion \
  && apt-get -yy autoremove \
  && apt-get -yy clean \
- && ln -sf /usr/lib/llvm-3.8/bin/clang-format /usr/bin/clang-format \
- && ln -sf /usr/lib/llvm-3.8/bin/clang-check  /usr/bin/clang-check \
- && ln -sf /usr/lib/llvm-3.8/bin/clang-tidy   /usr/bin/clang-tidy \
- && ln -sf /usr/lib/llvm-3.8/bin/clang        /usr/bin/clang \
- && ln -sf /usr/lib/llvm-3.8/bin/clang++      /usr/bin/clang++ \
- && ln -sf /usr/bin/scan-build-3.8            /usr/bin/scan-build \
- && ln -sf /usr/bin/scan-view-3.8             /usr/bin/scan-view \
- && update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100 \
- && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 100
+ && update-alternatives --install /usr/bin/cc cc /usr/local/bin/clang 100 \
+ && update-alternatives --install /usr/bin/c++ c++ /usr/local/bin/clang++ 100
 
 ENTRYPOINT	[ "bash" ]
