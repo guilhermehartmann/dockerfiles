@@ -10,7 +10,7 @@ RUN apt-get update \
  && apt-get update \
  && apt-get install -yy --no-install-recommends clang-3.8 clang-format-3.8 \
     clang-tidy-3.8 lldb-3.8 cmake make pkg-config perl-modules \
-    libdigest-md5-file-perl \
+    libdigest-md5-file-perl libasan1 \
  && apt-get -yy remove wget \
  && apt-get -yy autoremove \
  && apt-get -yy clean \
