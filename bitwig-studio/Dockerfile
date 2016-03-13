@@ -4,8 +4,8 @@ MAINTAINER Jonathan Brooker <jonathan.brooker@gmail.com>
 RUN apt-get update \
  && apt-get install -y \
             wget \
-	    	libcairo2 \
-	    	libxcb-icccm4 \
+            libcairo2 \
+            libxcb-icccm4 \
             libxcb1 \
             libxcb-randr0 \
             libx11-xcb1 \
@@ -41,4 +41,4 @@ RUN apt-get update \
   && apt-get -y autoremove \
   && apt-get -y clean
 
-ENTRYPOINT	[ "bitwig-studio" ]
+ENTRYPOINT [ "bitwig-studio" ]
