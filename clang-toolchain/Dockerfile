@@ -10,7 +10,10 @@ RUN apt-get update \
  && apt-get update \
  && apt-get install -yy --no-install-recommends clang-3.8 clang-format-3.8 \
     clang-tidy-3.8 lldb-3.8 cmake make pkg-config perl-modules \
-    libdigest-md5-file-perl libasan1 libubsan0 \
+    libdigest-md5-file-perl \
+ && wget -O - \
+    https://www.dropbox.com/s/7w8121wwnvjn861/clanglibs.3.8.0.tar.gz?dl=0 \
+  | tar -C /usr/lib/llvm-3.8/lib/clang/3.8.0/lib/linux/ -xzf - \
  && apt-get -yy remove wget \
  && apt-get -yy autoremove \
  && apt-get -yy clean \
