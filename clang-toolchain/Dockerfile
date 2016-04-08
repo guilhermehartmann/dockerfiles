@@ -24,6 +24,7 @@ RUN apt-get update \
  && ln -sf /usr/lib/llvm-3.8/bin/clang++      /usr/bin/clang++ \
  && ln -sf /usr/bin/scan-build-3.8            /usr/bin/scan-build \
  && ln -sf /usr/bin/scan-view-3.8             /usr/bin/scan-view \
+ && ln -sf /usr/bin/run-clang-tidy-3.8.py     /usr/bin/run-clang-tidy.py \
  && update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100 \
  && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 100
 
