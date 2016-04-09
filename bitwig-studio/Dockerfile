@@ -34,9 +34,9 @@ RUN apt-get update \
             libav-tools \
             zenity \
             links
-RUN  wget http://downloads.bitwig.com/stable/1.3.0/bitwig-studio-1.3.0.deb \
-  && dpkg -i bitwig-studio-1.3.0.deb \
-  && rm bitwig-studio-1.3.0.deb \
+RUN  wget http://downloads.bitwig.com/stable/1.3.8/bitwig-studio-1.3.8.deb \
+  && dpkg -i bitwig-studio-1.3.8.deb \
+  && rm bitwig-studio-1.3.8.deb \
   && apt-get -y remove wget \
   && apt-get -y autoremove \
   && apt-get -y clean
