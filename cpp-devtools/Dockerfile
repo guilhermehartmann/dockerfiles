@@ -6,7 +6,7 @@ RUN apt-get update \
     build-essential wget rsync cmake pkg-config perl-modules \
     libdigest-md5-file-perl xz-utils python \
     clang clang-tidy clang-format git libstdc++-4.9-dev libssl-dev \
-    liblmdb-dev gdb \
+    liblmdb-dev gdb llvm \
  && apt-get -y autoremove \
  && apt-get -y clean
 
